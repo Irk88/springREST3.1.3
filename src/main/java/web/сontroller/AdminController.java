@@ -36,6 +36,7 @@ public class AdminController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("admin/admin");
         modelAndView.addObject("admin",admin);
+        modelAndView.addObject("roles", roleService.getAllRoles());
         return modelAndView;
     }
 
@@ -54,7 +55,7 @@ public class AdminController {
     public ResponseEntity<User> add(@RequestBody User user){
         user.setRoleSet(roleService.getSetOfRoles(user.getRoleSetTemp()));
         userService.saveUser(user);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
     @PutMapping("/api/users")
